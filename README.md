@@ -11,5 +11,15 @@ what has improved in your version.
 
 Please make the function `getUsersBadge` async.
 
-Please check branch task-3 for the next assignment.
+## Task III
 
+There are new Badges! Please implement the following Badges:
+```
+> 1 starter  
+> 100 platinum  
+> 2000 god like  
+< 0 bad ass  
+```
+
+
+Thank you for your time! 
