@@ -25,7 +25,7 @@ Please check branch task-4 for the next assignment.
 
 ## Task IV
 
-We get more and more Users! We need to calculate the Badges for alle users in our database. 
+We get more and more Users! We need to calculate the Badges for all users in our database. 
 Please read all User from `./src/user-store.ts` (`getAllUser()`) and calculate the badges for all Users.
 
 It would be extra nice to have some statistics afterwards in the console like 
