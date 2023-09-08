@@ -11,7 +11,7 @@ function generateUser(): User {
   return {
     id: faker.string.uuid(),
     username: faker.person.fullName(),
-    solution_count: getRandomInt(2200),
+    solutionCount: getRandomInt(2200),
   };
 }
 
