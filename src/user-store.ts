@@ -15,6 +15,6 @@ function generateUser(): User {
   };
 }
 
-function getRandomInt(max: number): number {
+export function getRandomInt(max: number): number {
   return Math.floor(Math.random() * max);
 }
