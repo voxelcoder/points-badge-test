@@ -46,3 +46,6 @@ To emulate a slow `getUsersBadge` function, please call and await the new `emula
 inside `getUsersBadge`.
 
 How does that impact the rest of the source code? Please optimize the code to reduce the overall execution time.
+
+Please check branch task-6 for the next assignment and merge your changes from this branch. The next assignments should
+build on top of your improvements.
