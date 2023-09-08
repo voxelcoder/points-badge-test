@@ -30,3 +30,9 @@ export const getUsersBadge = async (user: User): Promise<Icon | null> => {
 
     return null;
 }
+
+function calculateUsersStatistics() {
+  // todo
+}
+
+calculateUsersStatistics();
