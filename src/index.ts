@@ -67,3 +67,28 @@ export const getUsersBadgeFromMap = ( user: User ): Icon | null => {
 
   return badge;
 }
+
+// Variant 2.1: Early return from the loop, and removing let binding.
+
+const solutionCountsToIconsDescending = [...solutionCountsToIcons].reverse();
+
+/**
+ * Returns the correct badge for a user based on their `solution count`.
+ *
+ * @param user The user to get the badge for.
+ *
+ * @note This refactor removes the need for adding manual `if` statements to the function. Instead, we iterate over the
+ *       `solutionCountsToIconsDescending` map and return the appropriate badge icon. This requires us to reverse the
+ *       order of the entries in the map, such that we can return the first match.
+ *
+ *       Personally, I like this variant the most, as it strikes a good balance between readability and conciseness.
+ */
+export const getUsersBadgeFromMapWithEarlyReturn = ( user: User ): Icon | null => {
+    for ( const [ count, icon ] of solutionCountsToIconsDescending ) {
+        if ( user.solutionCount >= count ) {
+          return icon;
+        }
+    }
+
+    return null;
+}
