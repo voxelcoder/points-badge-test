@@ -26,15 +26,3 @@ export const getUsersBadge = async (user: User): Promise<Icon | null> => {
 
     return null;
 }
-
-// Note, we could also make it async like this:
-export const getUsersBadgeWithoutAsyncKeyword = (user: User): Promise<Icon | null> =>
-    new Promise((resolve) => {
-        for (const [count, icon] of solutionCountsToIconsDescending) {
-            if (user.solutionCount >= count) {
-                resolve(icon);
-            }
-        }
-
-        resolve(null);
-    });
