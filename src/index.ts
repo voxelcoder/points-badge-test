@@ -92,3 +92,28 @@ export const getUsersBadgeFromMapWithEarlyReturn = ( user: User ): Icon | null =
 
     return null;
 }
+
+// Variant 3: Using array methods
+
+/**
+ * Returns the correct badge for a user based on their `solution count`.
+ *
+ * @param user The user to get the badge for.
+ *
+ * @note This refactor makes use of array methods to find the correct badge icon. This is (theoretically) worse in terms
+ *       of performance than the previous variants, but it is a good example of how to use array methods to solve this
+ *       problem.
+ */
+export const getUsersBadgeFromMapWithFilter = ( user: User ): Icon | null =>
+    solutionCountsToIcons.filter(( [count,] ) => user.solutionCount >= count ).pop()?.[1] ?? null;
+
+/**
+ * Returns the correct badge for a user based on their `solution count`.
+ *
+ * @param user The user to get the badge for.
+ *
+ * @note Instead of using `filter` and `pop`, we can also use `reduce` to find the correct badge icon. Though this, and
+ *       the previous variant, hurt readability in my opinion - for this specific problem, at least.
+ */
+export const getUsersBadgeFromMapWithReduce = ( user: User ): Icon | null =>
+    solutionCountsToIcons.reduce( ( newBadge: Icon, [count, icon] ) => user.solutionCount < count ? newBadge : icon, null );
