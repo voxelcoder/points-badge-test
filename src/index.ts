@@ -5,9 +5,13 @@ import {Icon} from './types/icon.enum';
  * A map of minimum solution counts to badge icons.
  */
 const solutionCountsToIcons: [number, Icon][] = [
+    [0, Icon.BADGE_BAD_ASS],
+    [1, Icon.BADGE_STARTER],
     [5, Icon.BADGE_BRONZE],
     [25, Icon.BADGE_SILVER],
-    [50, Icon.BADGE_GOLD]
+    [50, Icon.BADGE_GOLD],
+    [100, Icon.BADGE_PLATINUM],
+    [2000, Icon.BADGE_GOD_LIKE]
 ];
 
 const solutionCountsToIconsDescending = [...solutionCountsToIcons].reverse();
