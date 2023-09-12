@@ -1,6 +1,7 @@
-import {getUsersBadge} from './index';
+import {calculateUsersStatistics, getUsersBadge} from './index';
 import {Icon} from './types/icon.enum';
 import {User} from './types/user.interface';
+import {getAllUser} from "./user-store";
 
 describe('getUsersBadge', () => {
     it(`get God Like`, async function () {
@@ -49,8 +50,50 @@ describe('getUsersBadge', () => {
         expect(await getUsersBadge(getUserMock(-1))).toEqual(null);
         expect(await getUsersBadge(getUserMock(0))).not.toEqual(null);
     });
-
 });
+
+describe("calculateUsersStatistics", () => {
+    const testUsers = [
+        getUserMock(1),
+        getUserMock(34),
+        getUserMock(45),
+        getUserMock(199),
+        getUserMock(205),
+        getUserMock(500),
+        getUserMock(2000),
+        getUserMock(2500),
+    ];
+
+    const store = jest.requireActual("./user-store");
+    jest.spyOn(store, "getAllUser").mockResolvedValue(testUsers);
+
+    it("returns the correct user count", async () => {
+        const {userCount} = await calculateUsersStatistics();
+        expect(userCount).toEqual(8);
+    });
+
+    it("calculates the correct average users per badge", async () => {
+        const {averageUsersPerBadge} = await calculateUsersStatistics();
+        expect(averageUsersPerBadge).toEqual(2);
+    });
+
+    it("gets the most given badge", async () => {
+        const {mostGivenBadge} = await calculateUsersStatistics();
+        expect(mostGivenBadge).toEqual(Icon.BADGE_PLATINUM);
+    });
+
+    it("determines the top five users", async () => {
+        const {topFiveUsers} = await calculateUsersStatistics();
+
+        expect(topFiveUsers.map(user => user.solutionCount)).toEqual([
+            2500,
+            2000,
+            500,
+            205,
+            199
+        ]);
+    });
+})
 
 function getUserMock(count: number): User {
     return {

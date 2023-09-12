@@ -1,5 +1,7 @@
 import {User} from './types/user.interface';
 import {Icon} from './types/icon.enum';
+import {getAllUser} from "./user-store";
+
 
 /**
  * A map of minimum solution counts to badge icons.
@@ -31,8 +33,50 @@ export const getUsersBadge = async (user: User): Promise<Icon | null> => {
     return null;
 }
 
-function calculateUsersStatistics() {
-  // todo
+
+/**
+ * Groups users by their badge. Only badges that are given out to the users in the array are contained in the map.
+ *
+ * @param users The users to group.
+ */
+async function groupBadgesToUsers(users: User[]): Promise<Map<Icon, User[]>> {
+    const badgesToUsers = new Map();
+
+    for (const user of users) {
+        const badge = await getUsersBadge(user);
+
+        if (badgesToUsers.has(badge)) {
+            badgesToUsers.get(badge).push(user);
+            continue;
+        }
+
+        badgesToUsers.set(badge, [user]);
+    }
+
+    return badgesToUsers;
 }
 
-calculateUsersStatistics();
+interface UserStatistics {
+    userCount: number;
+    averageUsersPerBadge: number;
+    mostGivenBadge: Icon;
+    topFiveUsers: User[];
+}
+
+const getMostGivenBadge = (badgesToUsers: Map<Icon, User[]>): Icon => Array.from(badgesToUsers.entries()).sort(([, a], [, b]) => b.length - a.length)[0][0];
+
+const getTopFiveUsers = (users: User[]): User[] => users.sort((a, b) => b.solutionCount - a.solutionCount).slice(0, 5);
+
+export async function calculateUsersStatistics(): Promise<UserStatistics> {
+    const users = await getAllUser();
+    const badgesToUsers = await groupBadgesToUsers(users);
+
+    return {
+        userCount: users.length,
+        averageUsersPerBadge: users.length / badgesToUsers.size,
+        mostGivenBadge: getMostGivenBadge(badgesToUsers),
+        topFiveUsers: getTopFiveUsers(users)
+    };
+}
+
+calculateUsersStatistics().then((statistics) => console.log(statistics));
