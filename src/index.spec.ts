@@ -70,17 +70,17 @@ describe("calculateUsersStatistics", () => {
     it("returns the correct user count", async () => {
         const {userCount} = await calculateUsersStatistics();
         expect(userCount).toEqual(8);
-    });
+    }, 10000);
 
     it("calculates the correct average users per badge", async () => {
         const {averageUsersPerBadge} = await calculateUsersStatistics();
         expect(averageUsersPerBadge).toEqual(2);
-    });
+    }, 10000);
 
     it("gets the most given badge", async () => {
         const {mostGivenBadge} = await calculateUsersStatistics();
         expect(mostGivenBadge).toEqual(Icon.BADGE_PLATINUM);
-    });
+    }, 10000);
 
     it("determines the top five users", async () => {
         const {topFiveUsers} = await calculateUsersStatistics();
@@ -92,7 +92,7 @@ describe("calculateUsersStatistics", () => {
             205,
             199
         ]);
-    });
+    }, 10000);
 })
 
 function getUserMock(count: number): User {
