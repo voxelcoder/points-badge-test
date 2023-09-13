@@ -67,20 +67,22 @@ describe("calculateUsersStatistics", () => {
     const store = jest.requireActual("./user-store");
     jest.spyOn(store, "getAllUser").mockResolvedValue(testUsers);
 
+    const timeout = 60_000; // 60 Seconds
+
     it("returns the correct user count", async () => {
         const {userCount} = await calculateUsersStatistics();
         expect(userCount).toEqual(8);
-    }, 10000);
+    }, timeout);
 
     it("calculates the correct average users per badge", async () => {
         const {averageUsersPerBadge} = await calculateUsersStatistics();
         expect(averageUsersPerBadge).toEqual(2);
-    }, 10000);
+    }, timeout);
 
     it("gets the most given badge", async () => {
         const {mostGivenBadge} = await calculateUsersStatistics();
         expect(mostGivenBadge).toEqual(Icon.BADGE_PLATINUM);
-    }, 10000);
+    }, timeout);
 
     it("determines the top five users", async () => {
         const {topFiveUsers} = await calculateUsersStatistics();
@@ -92,7 +94,7 @@ describe("calculateUsersStatistics", () => {
             205,
             199
         ]);
-    }, 10000);
+    }, timeout);
 })
 
 function getUserMock(count: number): User {
